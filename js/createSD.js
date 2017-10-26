@@ -54,7 +54,7 @@ SD.prototype={
 	                //如果生成的重复了就重新生成。  
 	                do{  
 	                    item = ableArr[getRandom(ableArr.length)-1];  
-	                }while(($.inArray(item, arr)>-1));  
+	                }while((arr.indexOf(item)>-1));  
 	  
 	                this.sdArr[parseInt(i+''+j)] = item;  
 	            }  
@@ -131,7 +131,7 @@ SD.prototype={
 		for(var a =0;a<num;a++){
 			do{
 				item = parseInt(numArr[getRandom(9) -1] +''+ numArr[getRandom(9) -1]);
-			}while($.inArray(item, blankArr)>-1);
+			}while(blankArr.indexOf(item)>-1);
 			blankArr.push(item);
 		}
 		this.blankArr = blankArr;
@@ -157,7 +157,7 @@ function getRandom(n){
 function getConnect(arr1,arr2){
 	var i,len = arr1.length,resArr = arr2.slice();
 	for(i=0;i<len;i++){
-		if($.inArray(arr1[i], arr2)<0){
+		if(arr2.indexOf(arr1[i])<0){
 			resArr.push(arr1[i]);
 		}
 	}
@@ -168,7 +168,7 @@ function getConnect(arr1,arr2){
 function　arrMinus(arr1,arr2){
 	var resArr = [],len = arr1.length;
 	for(var i=0;i<len;i++){
-		if($.inArray(arr1[i], arr2)<0){
+		if(arr2.indexOf(arr1[i])<0){
 			resArr.push(arr1[i]);
 		}
 	}
