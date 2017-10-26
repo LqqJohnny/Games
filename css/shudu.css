@@ -1,0 +1,32 @@
+td{
+	box-sizing: border-box;
+}
+.has{
+	background-color: #eeeeee;
+}
+.wrong{
+	    background-color: #f8aeae;
+}
+.bottomBorder{
+	border-bottom: 2px solid #000;
+}
+.rightBorder{
+	border-right: 2px solid #000;
+}
+#shudu{
+	text-align: center;
+}
+table{
+	margin:0 auto;
+	border-color: #fff;
+}
+button{
+	margin:20px;
+	width:100px;
+	height:40px;
+	line-height:40px;
+	background-color: #3daad9;
+	border:none;
+	border-radius:4px;
+	color:#fff;
+}

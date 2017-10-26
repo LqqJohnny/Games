@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>数独</title>
+		<link rel="stylesheet" type="text/css" href="css/shudu.css"/>
+	</head>
+	<body>
+		<div id="shudu">
+			<table border="1" cellspacing="0" cellpadding="15">
+				<tr v-for="row,i in arr">
+					<td  
+						v-for="number,j in row" 
+						:contentEditable="number==''"
+						maxlength="1"
+						size="1"
+						:class="{ has: number!='' , wrong:wrongCeil.indexOf(i+''+j)>=0 , bottomBorder:i%3==2 , rightBorder : j%3==2}"
+						@keyup="input(i,j,$event)"
+						>{{number}}</td>
+				</tr>
+			</table>
+			
+			<button @click="check">检查</button>
+		</div>
+		<script type="text/javascript" src="js/vue.js"></script>
+		<script src="http://apps.bdimg.com/libs/jquery/1.8.1/jquery.min.js"></script>
+		<script type="text/javascript" src="js/createSD.js"></script>
+		<script>
+			var a = new SD();
+			a.init();
+			var arr = [[],[],[],[],[],[],[],[],[]];  //  用来渲染的数组
+			var fullArr = [[],[],[],[],[],[],[],[],[]];  //  存储 完整 的数组
+			for(var key in a.sdArr){
+				if(typeof(a.sdArr[key]) != undefined && key){
+					var i = parseInt(key[0])-1;
+					var j = parseInt(key[1])-1;
+					fullArr[i][j] = a.sdArr[key];
+					if(a.blankArr.indexOf(parseInt(key))>=0){
+						arr[i][j] = "";
+					}else{
+						arr[i][j] = a.sdArr[key];
+					}
+				}
+			}
+  
+			console.log(arr);  // 已经生成好了完整的用于展示的数独库
+			
+			var shudu = new Vue({
+				el:"#shudu",
+				data:{
+					arr:arr,
+					inputNums :{} ,//			存着所有玩家输入的数字
+					wrongCeil:[]
+				},
+				methods:{
+					input:function(i,j,$event){
+						
+						this.inputNums[i+""+j] = $event.path[0].innerText;
+					},
+					check:function(){
+						// 只需要判断 用户输入的那些空格  是否对应
+						var inputs = this.inputNums;
+						var pass = true;
+						for(var key in inputs){
+							var i = parseInt(key[0]);
+							var j = parseInt(key[1]);
+							if(fullArr[i][j]+"" !== inputs[key]){
+								pass = false;
+								this.wrongCeil.push(i+''+j);
+							}
+						}
+						if(pass){
+							alert("恭喜！完全正确。")	
+						}else{
+							alert("啊哦，有错误哦.");
+							console.log(this.wrongCeil);
+						}
+					}
+				}
+				
+			})
+			
+		</script>
+	</body>
+</html>
